@@ -1,0 +1,113 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;  /* Soft blue */
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #2d2d2d; /* Dark grey */
+  color: #f1f1f1;
+}
+
+/* Container Styling */
+.container {
+  margin: 50px auto;
+  max-width: 500px;
+  padding: 20px;
+  background: linear-gradient(145deg, #d3cce3, #e9e4f0);  /* Lavender gradient */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.5s, color 0.5s;
+}
+
+/* Dark Mode for Container */
+.container.dark-mode {
+  background: linear-gradient(145deg, #3b3b3b, #2d2d2d);  /* Dark gradient */
+}
+
+/* Input Styling */
+input {
+  padding: 12px;
+  width: 75%;
+  margin: 15px 0;
+  border: 2px solid #b6a0c0;  /* Lavender border */
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #9e7bb5;  /* Darker lavender on focus */
+  outline: none;
+}
+
+/* Button Styling */
+button {
+  padding: 12px 25px;
+  background: #9e7bb5;  /* Lavender */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #7e5f96;  /* Darker lavender */
+}
+
+button:active {
+  background: #6b4e7d;  /* Even darker lavender on click */
+}
+
+/* Weather Result and Additional Info */
+#weatherResult, #additionalInfo {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #5a3e7f;  /* Dark lavender */
+}
+
+#weatherResult h3 {
+  color: #6c4f87;  /* Lighter lavender */
+}
+
+/* Map Section */
+#map {
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Weather Joke Styling */
+#weatherJoke {
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 20px;
+  color: #9e7bb5;  /* Lavender color for the joke */
+}
+
+/* Loading Indicator */
+#loading {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e74c3c;  /* Red color for visibility */
+}
+
+/* Theme Toggle Button */
+#themeToggle {
+  background-color: #ff7f50; /* Coral color */
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#themeToggle:hover {
+  background-color: #ff6347;  /* Slightly darker coral */
+}
