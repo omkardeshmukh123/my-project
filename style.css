@@ -2,16 +2,17 @@
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background-color: #f0f8ff;  /* Soft blue */
+  background-color: #f0f8ff; /* Soft blue */
   margin: 0;
   padding: 0;
+  color: #333; /* Default text color */
   transition: background-color 0.5s, color 0.5s;
 }
 
 /* Dark Mode Styles */
 body.dark-mode {
-  background-color: #2d2d2d; /* Dark grey */
-  color: #f1f1f1;
+  background-color: #2c3e50; /* Dark Blue-Grey */
+  color: #ecf0f1; /* Light grey */
 }
 
 /* Container Styling */
@@ -19,15 +20,15 @@ body.dark-mode {
   margin: 50px auto;
   max-width: 500px;
   padding: 20px;
-  background: linear-gradient(145deg, #d3cce3, #e9e4f0);  /* Lavender gradient */
+  background: linear-gradient(145deg, #d3cce3, #e9e4f0); /* Lavender gradient */
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: background 0.5s, color 0.5s;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Dark Mode for Container */
-.container.dark-mode {
-  background: linear-gradient(145deg, #3b3b3b, #2d2d2d);  /* Dark gradient */
+body.dark-mode .container {
+  background: linear-gradient(145deg, #2f2f2f, #3b3b3b); /* Dark gradient */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Input Styling */
@@ -35,44 +36,81 @@ input {
   padding: 12px;
   width: 75%;
   margin: 15px 0;
-  border: 2px solid #b6a0c0;  /* Lavender border */
+  border: 2px solid #b6a0c0; /* Light lavender */
   border-radius: 8px;
-  transition: border-color 0.3s ease;
+  background: #ffffff;
+  color: #333;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+body.dark-mode input {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border-color: #7f8c8d; /* Darker border */
 }
 
 input:focus {
-  border-color: #9e7bb5;  /* Darker lavender on focus */
+  border-color: #9e7bb5; /* Darker lavender */
   outline: none;
 }
 
 /* Button Styling */
 button {
-  padding: 12px 25px;
-  background: #9e7bb5;  /* Lavender */
+  padding: 12px 20px;
+  background: #9e7bb5; /* Lavender */
   color: white;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-  background: #7e5f96;  /* Darker lavender */
+  background: #7e5f96; /* Darker lavender */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-  background: #6b4e7d;  /* Even darker lavender on click */
+  background: #6b4e7d; /* Even darker lavender */
+}
+
+body.dark-mode button {
+  background: #34495e; /* Dark blue-grey */
+}
+
+body.dark-mode button:hover {
+  background: #2c3e50; /* Slightly darker */
+}
+
+/* Theme Toggle Button */
+#themeToggle {
+  background-color: #ff7f50; /* Coral */
+}
+
+#themeToggle:hover {
+  background-color: #ff6347; /* Darker coral */
 }
 
 /* Weather Result and Additional Info */
 #weatherResult, #additionalInfo {
   margin-top: 20px;
   font-size: 18px;
-  color: #5a3e7f;  /* Dark lavender */
+  color: #5a3e7f; /* Dark lavender */
+  transition: color 0.5s ease;
+}
+
+body.dark-mode #weatherResult, 
+body.dark-mode #additionalInfo {
+  color: #bdc3c7; /* Light grey */
 }
 
 #weatherResult h3 {
-  color: #6c4f87;  /* Lighter lavender */
+  color: #6c4f87; /* Lighter lavender */
+}
+
+body.dark-mode #weatherResult h3 {
+  color: #ecf0f1; /* White */
 }
 
 /* Map Section */
@@ -84,30 +122,47 @@ button:active {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+body.dark-mode #map {
+  border: 2px solid #34495e; /* Subtle border for dark mode */
+}
+
 /* Weather Joke Styling */
 #weatherJoke {
   font-weight: bold;
   font-style: italic;
   margin-top: 20px;
-  color: #9e7bb5;  /* Lavender color for the joke */
+  color: #9e7bb5; /* Lavender */
+}
+
+body.dark-mode #weatherJoke {
+  color: #95a5a6; /* Light grey */
 }
 
 /* Loading Indicator */
 #loading {
   font-size: 16px;
   font-weight: bold;
-  color: #e74c3c;  /* Red color for visibility */
+  color: #e74c3c; /* Red for visibility */
 }
 
-/* Theme Toggle Button */
-#themeToggle {
-  background-color: #ff7f50; /* Coral color */
-  color: white;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
+body.dark-mode #loading {
+  color: #e74c3c; /* Keep red visible in dark mode */
 }
 
-#themeToggle:hover {
-  background-color: #ff6347;  /* Slightly darker coral */
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  input {
+    width: 90%;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
 }
