@@ -8,17 +8,21 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
+  <!-- Main Weather Dashboard Container -->
   <div class="container">
     <h1>Weather Dashboard</h1>
+    
     <!-- Input and Buttons -->
-    <input type="text" id="cityInput" placeholder="Enter city name" />
-    <button id="getWeather">Get Weather</button>
-    <button id="geoLocation">Get Weather for Current Location</button>
-    <button id="themeToggle">Switch Theme</button>
+    <div class="input-section">
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <button id="getWeather">Get Weather</button>
+      <button id="geoLocation">Get Weather for Current Location</button>
+      <button id="themeToggle">Switch Theme</button>
+    </div>
 
     <!-- Weather Result and Additional Info -->
-    <div id="weatherResult"></div>
-    <div id="additionalInfo">
+    <div id="weatherResult" class="weather-result"></div>
+    <div id="additionalInfo" class="additional-info">
       <p id="sunrise"></p>
       <p id="sunset"></p>
       <p id="forecast"></p>
@@ -28,11 +32,14 @@
     <div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div>
 
     <!-- Weather Joke or Fun Fact -->
-    <p id="weatherJoke" style="font-weight: bold; font-style: italic; margin-top: 20px;"></p>
+    <p id="weatherJoke" class="weather-joke" style="font-weight: bold; font-style: italic; margin-top: 20px;"></p>
 
     <!-- Loading Indicator -->
-    <div id="loading" style="display: none;">Loading...</div>
+    <div id="loading" class="loading-indicator" style="display: none;">Loading...</div>
   </div>
+
+  <!-- External JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
