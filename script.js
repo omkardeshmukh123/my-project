@@ -1,7 +1,7 @@
 // API key from OpenWeatherMap
-const apiKey = "b88cbdebd55c50ead7253dd695fa026b"; // Keep your API key here
+const apiKey = "b88cbdebd55c50ead7253dd695fa026b"; // Replace with your API key
 
-// Get elements
+// DOM Elements
 const cityInput = document.getElementById("cityInput");
 const getWeatherButton = document.getElementById("getWeather");
 const geoLocationButton = document.getElementById("geoLocation");
@@ -12,13 +12,15 @@ const loading = document.getElementById("loading");
 const weatherJoke = document.getElementById("weatherJoke");
 const mapContainer = document.getElementById("map");
 
-// Helper function to convert UNIX time to human-readable time
+let map = null; // Holds the Leaflet map instance
+
+// Helper function to convert UNIX time to human-readable format
 const unixToTime = (unix) => {
   const date = new Date(unix * 1000);
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
-// Fetch weather data by city name
+// Event Listener: Fetch weather data by city name
 getWeatherButton.addEventListener("click", () => {
   const city = cityInput.value.trim();
   if (city === "") {
@@ -28,15 +30,18 @@ getWeatherButton.addEventListener("click", () => {
   fetchWeatherByCity(city);
 });
 
-// Fetch weather data using geolocation
+// Event Listener: Fetch weather data using geolocation
 geoLocationButton.addEventListener("click", () => {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      fetchWeatherByLocation(latitude, longitude);
-    }, () => {
-      alert("Unable to retrieve your location.");
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherByLocation(latitude, longitude);
+      },
+      () => {
+        alert("Unable to retrieve your location.");
+      }
+    );
   } else {
     alert("Geolocation is not supported by your browser.");
   }
@@ -48,7 +53,7 @@ const fetchWeatherByCity = (city) => {
   fetchWeather(apiUrl);
 };
 
-// Fetch weather data by location
+// Fetch weather data by coordinates
 const fetchWeatherByLocation = (lat, lon) => {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   fetchWeather(apiUrl);
@@ -56,11 +61,11 @@ const fetchWeatherByLocation = (lat, lon) => {
 
 // Generic fetch function
 const fetchWeather = (apiUrl) => {
-  loading.style.display = "block";
+  loading.style.display = "block"; // Show loading indicator
   fetch(apiUrl)
     .then((response) => {
-      loading.style.display = "none";
-      if (!response.ok) throw new Error("City not found");
+      loading.style.display = "none"; // Hide loading
+      if (!response.ok) throw new Error("City not found or invalid API response");
       return response.json();
     })
     .then((data) => displayWeather(data))
@@ -91,12 +96,16 @@ const displayWeather = (data) => {
   displayWeatherJoke();
 };
 
-// Show Map with Pin
+// Show map with a marker (optimized to prevent multiple maps)
 const showMap = (lat, lon) => {
-  const map = L.map(mapContainer).setView([lat, lon], 13);
+  if (map) {
+    map.remove(); // Remove previous map instance
+  }
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  map = L.map(mapContainer).setView([lat, lon], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   L.marker([lat, lon]).addTo(map).bindPopup("Weather Location").openPopup();
@@ -107,13 +116,23 @@ const displayWeatherJoke = () => {
   const jokes = [
     "Did you know? The coldest temperature ever recorded on Earth was −128.6°F (−89.2°C) in Antarctica in 1983!",
     "Why don’t skeletons fight each other? They don’t have the guts!",
-    "What’s a tornado’s favorite type of music? Anything with a good twister beat!"
+    "What’s a tornado’s favorite type of music? Anything with a good twister beat!",
   ];
   const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
   weatherJoke.innerHTML = `<p>${randomJoke}</p>`;
 };
 
-// Theme toggle
+// Theme Toggle with Local Storage
 themeToggleButton.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
+  const isDarkMode = document.body.classList.contains("dark-mode");
+  localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
+});
+
+// Load theme preference on page load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("darkMode");
+  if (savedTheme === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
 });
